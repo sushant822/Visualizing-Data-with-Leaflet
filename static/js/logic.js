@@ -69,6 +69,8 @@ function createFeatures(earthquakeData) {
     onEachFeature: onEachFeature
   });
 
+  console.log(earthquakes);
+  
   // Sending our earthquakes layer to the createMap function
   createMap(earthquakes);
 }
