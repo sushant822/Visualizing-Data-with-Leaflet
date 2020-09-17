@@ -6,17 +6,18 @@ d3.json(queryUrl, function(data) {
   //console.log(data.features[1].geometry.coordinates);
   
   for (var i=0; i<data.length; i++) {
-    var coordinates = data.features[i].geometry.coordinates
-
-    L.circle([coordinates[1], coordinates[0]], {
+    var geometry = data[i].geometry
+    console.log(geometry);
+    /*
+    L.circle([geometry.coordinates[1], geometry.coordinates[0]], {
       color: "red",
       stroke: false,
       fillColor: "red",
       fillOpacity: 0.5,
       radius: 5000
-    }).addTo(myMap);
+    }).addTo(myMap);*/
 
-    console.log(coordinates);
+    
   };
   
 });
