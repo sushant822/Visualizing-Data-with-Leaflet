@@ -3,11 +3,11 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_we
 
 d3.json(queryUrl, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
-  console.log(data.features[1].geometry.coordinates);
+  //console.log(data.features[1].geometry.coordinates);
   
-  for (var i=0; i<data.length; i++) {
-    var geometry = data.features[i].geometry;
-    console.log(geometry);
+  for (var i = 0; i < data.length; i++) {
+    //console.log(data[i].Name);
+    console.log(data.feature[i].geometry);
     /*
     L.circle([geometry.coordinates[1], geometry.coordinates[0]], {
       color: "red",
@@ -16,7 +16,18 @@ d3.json(queryUrl, function(data) {
       fillOpacity: 0.5,
       radius: 5000
     }).addTo(myMap);*/
-
+    L.geoJSON(data, {
+      pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, baseMarkerOptions);
+      }, 
+      style: function(feature) {
+        return {
+          radius: markerSize(feature.properties.mag),
+          fillColor: colorScale(feature.properties.mag)
+        }
+      }
+      //onEachFeature: popUpText
+    });
     
   };
   
