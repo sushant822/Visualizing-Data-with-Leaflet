@@ -3,7 +3,22 @@ var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_we
 
 d3.json(queryUrl, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
-  console.log(data.features[0].geometry.coordinates);
+  //console.log(data.features[1].geometry.coordinates);
+  
+  for (var i=0; i<data.length; i++) {
+    var coordinates = data.features[i].geometry.coordinates
+
+    L.circle([coordinates[1], coordinates[0]], {
+      color: "red",
+      stroke: false,
+      fillColor: "red",
+      fillOpacity: 0.5,
+      radius: 5000
+    }).addTo(myMap);
+
+    console.log(coordinates);
+  };
+  
 });
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
@@ -27,13 +42,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
   //L.marker([45,-75]).addTo(myMap);
 
-  L.circle([45,-75], {
-    color: "red",
-    stroke: false,
-    fillColor: "red",
-    fillOpacity: 0.5,
-    radius: 500000
-  }).addTo(myMap);
+  
 
 
 
