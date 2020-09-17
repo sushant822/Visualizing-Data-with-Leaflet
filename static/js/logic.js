@@ -1,9 +1,9 @@
 // Store our API endpoint inside queryUrl
 var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
-/*
+
 d3.json(queryUrl, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
-  //console.log(data.features[1].geometry.coordinates);
+  console.log(data.features[1].geometry.coordinates);
   
   for (var i=0; i<data.length; i++) {
     var geometry = data.features[i].geometry;
@@ -15,12 +15,13 @@ d3.json(queryUrl, function(data) {
       fillColor: "red",
       fillOpacity: 0.5,
       radius: 5000
-    }).addTo(myMap);
+    }).addTo(myMap);*/
 
     
   };
   
 });
+
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
@@ -39,10 +40,10 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     id: "mapbox/light-v10",
     accessToken: API_KEY
-  }).addTo(myMap);*/
+  }).addTo(myMap);
 
   //L.marker([45,-75]).addTo(myMap);
-
+/*
   
 
 
@@ -120,4 +121,4 @@ function createMap(earthquakes) {
   L.control.layers(baseMaps, overlayMaps, {
     collapsed: false
   }).addTo(myMap);
-}
+}*/
