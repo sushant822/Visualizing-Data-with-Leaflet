@@ -1,36 +1,21 @@
 // Store our API endpoint inside queryUrl
-var queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
 
-d3.json(queryUrl, function(data) {
-  // Once we get a response, send the data.features object to the createFeatures function
-  //console.log(data.features[1].geometry.coordinates);
-  
-  for (var i = 0; i < data.length; i++) {
-    //console.log(data[i].Name);
-    console.log(data.feature[i].geometry);
-    /*
-    L.circle([geometry.coordinates[1], geometry.coordinates[0]], {
-      color: "red",
-      stroke: false,
-      fillColor: "red",
-      fillOpacity: 0.5,
-      radius: 5000
-    }).addTo(myMap);*/
-    L.geoJSON(data, {
-      pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, baseMarkerOptions);
-      }, 
-      style: function(feature) {
-        return {
-          radius: markerSize(feature.properties.mag),
-          fillColor: colorScale(feature.properties.mag)
-        }
-      }
-      //onEachFeature: popUpText
-    });
-    
-  };
-  
+d3.json(queryURL, function(response) {
+  //var cities = data.stations;
+  var coordinates = response.features;
+  console.log(coordinates[0].geometry);
+  /*for (var i = 0; i < coordinates.length; i++) {
+    var lat = coordinates[i].lat;
+    var lng = coordinates[i].lon;
+    var temp = [lat, lng];
+    //console.log(temp);
+    var name = coordinates[i].name;
+    var capacity = coordinates[i].capacity;
+    L.marker(temp)
+    .bindPopup("<h1>" + name + "</h1> <hr> <h3>Capacity " + capacity + "</h3>")
+    .addTo(myMap);
+  }*/
 });
 
 
