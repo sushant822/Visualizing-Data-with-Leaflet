@@ -6,15 +6,21 @@ d3.json(queryURL, function(response) {
   var coordinates = response.features;
   console.log(coordinates[0].geometry.coordinates);
   for (var i = 0; i < coordinates.length; i++) {
-    var lat = coordinates[i].geometry.coordinates[0];
-    var lng = coordinates[i].geometry.coordinates[1];
+    var lat = coordinates[i].geometry.coordinates[1];
+    var lng = coordinates[i].geometry.coordinates[0];
     var temp = [lat, lng];
     //console.log(temp);
-    var name = coordinates[i].name;
-    var capacity = coordinates[i].capacity;
-    L.marker(temp)
-    .bindPopup("<h1>" + name + "</h1> <hr> <h3>Capacity " + capacity + "</h3>")
-    .addTo(myMap);
+    //var name = coordinates[i].name;
+    //var capacity = coordinates[i].capacity;
+    //L.marker(temp)
+    //.bindPopup("<h1>" + name + "</h1> <hr> <h3>Capacity " + capacity + "</h3>")
+    //.addTo(myMap);
+    var circle = L.circle(temp, {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5,
+      radius: 50000
+  }).addTo(myMap);
   }
 });
 
