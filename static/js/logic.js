@@ -4,12 +4,13 @@ var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_we
 d3.json(queryURL, function(response) {
   //var cities = data.stations;
   var coordinates = response.features;
-  //console.log(coordinates[0].properties.mag);
+  console.log(coordinates);
   for (var i = 0; i < coordinates.length; i++) {
     var lat = coordinates[i].geometry.coordinates[1];
     var lng = coordinates[i].geometry.coordinates[0];
     var temp = [lat, lng];
-    var mag = coordinates[i].properties.mag
+    var mag = coordinates[i].properties.mag;
+    var place = coordinates[i].properties.place;
     //console.log(temp);
     //var name = coordinates[i].name;
     //var capacity = coordinates[i].capacity;
@@ -23,6 +24,7 @@ d3.json(queryURL, function(response) {
       fillOpacity: 0.5,
       radius: 50000*mag
   }).addTo(myMap);
+  circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
   }
 });
 
