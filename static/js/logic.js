@@ -3,7 +3,7 @@ var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
-  console.log(coordinates);
+  //console.log(coordinates);
   for (var i = 0; i < coordinates.length; i++) {
     var lat = coordinates[i].geometry.coordinates[1];
     var lng = coordinates[i].geometry.coordinates[0];
@@ -20,33 +20,6 @@ d3.json(queryURL, function(response) {
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
   }
 
-  // Set up the legend
-  var legend = L.control({ position: "bottomright" });
-  legend.onAdd = function() {
-    var div = L.DomUtil.create("div", "info legend");
-    var limits = geojson.options.limits;
-    var colors = geojson.options.colors;
-    var labels = [];
-
-    // Add min & max
-    var legendInfo = "<h1>Median Income</h1>" +
-      "<div class=\"labels\">" +
-        "<div class=\"min\">" + limits[0] + "</div>" +
-        "<div class=\"max\">" + limits[limits.length - 1] + "</div>" +
-      "</div>";
-
-    div.innerHTML = legendInfo;
-
-    limits.forEach(function(limit, index) {
-      labels.push("<li style=\"background-color: " + colors[index] + "\"></li>");
-    });
-
-    div.innerHTML += "<ul>" + labels.join("") + "</ul>";
-    return div;
-  };
-
-  // Adding legend to the map
-  legend.addTo(myMap);
 });
 
 function magColor(mag) {
