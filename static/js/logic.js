@@ -50,30 +50,29 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   }).addTo(myMap);
 
   /*  TESTING  */
-
+/*
 function getColor(d) {
-  return d > 1000 ? '#800026' :
-         d > 500  ? '#BD0026' :
-         d > 200  ? '#E31A1C' :
-         d > 100  ? '#FC4E2A' :
-         d > 50   ? '#FD8D3C' :
-         d > 20   ? '#FEB24C' :
-         d > 10   ? '#FED976' :
+  return d > 5  ? '#BD0026' :
+         d > 4  ? '#E31A1C' :
+         d > 3  ? '#FC4E2A' :
+         d > 2   ? '#FD8D3C' :
+         d > 1   ? '#FEB24C' :
+         d > 0   ? '#FED976' :
                     '#FFEDA0';
-}
+}*/
 
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function () {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+        grades = [0, 1, 2, 3, 4, 5],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            '<i style="background:' + magColor(grades[i] + 1) + '"></i> ' +
             grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
 
