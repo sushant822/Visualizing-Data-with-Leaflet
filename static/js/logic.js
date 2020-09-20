@@ -3,6 +3,7 @@ var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 
 var platesURL = "static/data/boundaries.json";
 
+
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
   //console.log(coordinates);
@@ -19,12 +20,14 @@ d3.json(queryURL, function(response) {
       fillOpacity: 0.5,
       radius: 50000*mag
   }).addTo(myMap);
+  var cities = L.layerGroup([circle]);
+  //console.log(cities);
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
   }
 });
 
 
-
+function plates() {
   d3.json(platesURL, function(response) {
     var coordinates = response.features;
     //console.log(coordinates[0].geometry.coordinates);
@@ -39,7 +42,9 @@ d3.json(queryURL, function(response) {
       }).addTo(myMap);
     }
   });
+};
 
+//plates();
 
 function magColor(mag) {
   return mag >= 5 ? '#D73027':
