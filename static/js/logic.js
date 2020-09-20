@@ -1,6 +1,8 @@
 // Store our API endpoint inside queryUrl
 var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
+var platesURL = "static/data/boundaries.json";
+
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
   //console.log(coordinates);
@@ -14,12 +16,16 @@ d3.json(queryURL, function(response) {
       color: "red",
       fillColor: magColor(mag),
       stroke: false,
-      fillOpacity: 0.75,
+      fillOpacity: 0.5,
       radius: 50000*mag
   }).addTo(myMap);
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
   }
+});
 
+d3.json(platesURL, function(response) {
+  var coordinates = response.features[0].geometry;
+  console.log(coordinates);
 });
 
 function magColor(mag) {
