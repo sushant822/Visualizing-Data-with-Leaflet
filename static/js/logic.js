@@ -54,9 +54,9 @@ var baseMaps = {
 };
 
 // Overlays that may be toggled on or off
-var overlayMaps = {
-  //Cities: cityLayer
-};
+//var overlayMaps = {
+  //Dark: darkMap
+//};
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
@@ -69,7 +69,7 @@ var myMap = L.map("map", {
 
 // Pass our map layers into our layer control
 // Add the layer control to the map
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+L.control.layers(baseMaps).addTo(myMap);
 
 
   /*  Legend  */
