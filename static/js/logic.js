@@ -1,8 +1,7 @@
 // Store our API endpoint inside queryUrl
-var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
 d3.json(queryURL, function(response) {
-  //var cities = data.stations;
   var coordinates = response.features;
   console.log(coordinates);
   for (var i = 0; i < coordinates.length; i++) {
@@ -13,7 +12,7 @@ d3.json(queryURL, function(response) {
     var place = coordinates[i].properties.place;
     var circle = L.circle(temp, {
       color: 'red',
-      fillColor: '#f03',
+      fillColor: 'red',
       stroke: false,
       fillOpacity: 0.5,
       radius: 50000*mag
@@ -21,7 +20,6 @@ d3.json(queryURL, function(response) {
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
   }
 });
-
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
