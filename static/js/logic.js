@@ -72,17 +72,7 @@ var myMap = L.map("map", {
 L.control.layers(baseMaps, overlayMaps).addTo(myMap);
 
 
-  /*  TESTING  */
-/*
-function getColor(d) {
-  return d > 5  ? '#BD0026' :
-         d > 4  ? '#E31A1C' :
-         d > 3  ? '#FC4E2A' :
-         d > 2   ? '#FD8D3C' :
-         d > 1   ? '#FEB24C' :
-         d > 0   ? '#FED976' :
-                    '#FFEDA0';
-}*/
+  /*  Legend  */
 
 var legend = L.control({position: 'bottomright'});
 
@@ -103,5 +93,3 @@ legend.onAdd = function () {
 };
 
 legend.addTo(myMap);
-
-/* END TESTING  */
