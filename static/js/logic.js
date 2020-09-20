@@ -11,15 +11,24 @@ d3.json(queryURL, function(response) {
     var mag = coordinates[i].properties.mag;
     var place = coordinates[i].properties.place;
     var circle = L.circle(temp, {
-      color: 'red',
-      fillColor: 'red',
+      color: "red",
+      fillColor: magColor(mag),
       stroke: false,
-      fillOpacity: 0.5,
+      fillOpacity: 0.75,
       radius: 50000*mag
   }).addTo(myMap);
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
   }
 });
+
+function magColor(mag) {
+  return mag >= 5 ? '#D73027':
+        mag >= 4 ? '#FC8D59':
+        mag >= 3 ? '#FEE08B':
+        mag >= 2 ? '#D9EF8B':
+        mag >= 1 ? '#91CF60':
+                   '#1A9850';
+}
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
