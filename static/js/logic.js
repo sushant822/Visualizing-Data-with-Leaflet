@@ -23,20 +23,23 @@ d3.json(queryURL, function(response) {
   }
 });
 
-d3.json(platesURL, function(response) {
-  var coordinates = response.features;
-  //console.log(coordinates[0].geometry.coordinates);
-  for (var i = 0; i < coordinates.length; i++) {
-    var test = coordinates[i].geometry.coordinates;
-    //var testReverse = test.reverse();
-    //console.log(test);
-    var line = [test];
 
-    L.polyline(line, {
-      color: "orange"
-    }).addTo(myMap);
-  }
-});
+
+  d3.json(platesURL, function(response) {
+    var coordinates = response.features;
+    //console.log(coordinates[0].geometry.coordinates);
+    for (var i = 0; i < coordinates.length; i++) {
+      var test = coordinates[i].geometry.coordinates;
+      //var testReverse = test.reverse();
+      //console.log(test);
+      var line = [test];
+  
+      L.polyline(line, {
+        color: "orange"
+      }).addTo(myMap);
+    }
+  });
+
 
 function magColor(mag) {
   return mag >= 5 ? '#D73027':
@@ -53,7 +56,7 @@ function magColor(mag) {
     tileSize: 512,
     maxZoom: 18,
     zoomOffset: -1,
-    id: "mapbox/streets-v11",
+    id: "mapbox/light-v10",
     accessToken: API_KEY
   });
 
@@ -72,8 +75,11 @@ function magColor(mag) {
 
 // Overlays that may be toggled on or off
 //var overlayMaps = {
-//  Dark: darkMap
+//  Plates: plates
 //};
+
+
+
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
