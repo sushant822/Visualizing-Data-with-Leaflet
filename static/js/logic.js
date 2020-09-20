@@ -1,3 +1,4 @@
+
 // Store our API endpoint inside queryUrl
 var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
@@ -27,6 +28,7 @@ d3.json(queryURL, function(response) {
   }
 });
 
+//console.log(circleMarkers);
 
 var cities = L.layerGroup(circleMarkers);
 
@@ -91,16 +93,16 @@ var overlayMaps = {
 
 //var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
-  center: [
-      29.2996437,1.832259
-  ],
+  center: [29.2996437,1.832259],
   zoom: 2,
   layers: [streetmap, cities]
 });
 
 // Pass our map layers into our layer control
 // Add the layer control to the map
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+L.control.layers(baseMaps, overlayMaps, {
+  collapsed: true
+}).addTo(myMap);
 
 
 var legend = L.control({position: 'bottomright'});
@@ -122,6 +124,10 @@ legend.onAdd = function () {
 };
 
 legend.addTo(myMap);
+
+
+
+
 
 
 
