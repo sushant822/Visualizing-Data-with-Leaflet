@@ -24,8 +24,17 @@ d3.json(queryURL, function(response) {
 });
 
 d3.json(platesURL, function(response) {
-  var coordinates = response.features[0].geometry;
-  console.log(coordinates);
+  var coordinates = response.features;
+  //console.log(coordinates[0].geometry.coordinates);
+  for (var i = 0; i < coordinates.length; i++) {
+    var test = coordinates[i].geometry.coordinates;
+    //console.log(test)
+    var line = [test];
+
+    L.polyline(line, {
+      color: "red"
+    }).addTo(myMap);
+  }
 });
 
 function magColor(mag) {
