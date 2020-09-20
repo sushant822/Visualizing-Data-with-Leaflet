@@ -3,6 +3,7 @@ var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 
 var platesURL = "static/data/boundaries.json";
 
+var circleMarkers = [];
 
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
@@ -20,12 +21,12 @@ d3.json(queryURL, function(response) {
       fillOpacity: 0.5,
       radius: 50000*mag
   }).addTo(myMap);
-  var cities = L.layerGroup([circle]);
-  //console.log(cities);
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
+  circleMarkers.push(circle);
   }
 });
 
+var cities = L.layerGroup(circleMarkers);
 
 function plates() {
   d3.json(platesURL, function(response) {
@@ -80,7 +81,7 @@ function magColor(mag) {
 
 // Overlays that may be toggled on or off
 //var overlayMaps = {
-//  Plates: plates
+//  "Earthquakes": (circleMarker())
 //};
 
 
