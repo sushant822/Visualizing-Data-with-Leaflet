@@ -29,13 +29,27 @@ d3.json(queryURL, function(response) {
 };
 
 //console.log(circleMarkers);
+var faultLine = new L.LayerGroup();
+
+d3.json(platesURL, function(data) {
+  L.geoJSON(data, {
+    style: function() {
+      return {color: "#FFA500", fillOpacity: 0}
+    }
+  }).addTo(faultLine)
+})
+
 
 function plates() {
+
+  
+
+  /*
   d3.json(platesURL, function(response) {
     var coordinates = response.features;
     //console.log(coordinates[0].geometry.coordinates);
     for (var i = 0; i < coordinates.length; i++) {
-      var latlng = (coordinates[i].geometry.coordinates).reverse();
+      var latlng = (coordinates[i].geometry.coordinates);
       //var lat = coordinates[i].geometry.coordinates[1];
       //var lng = coordinates[i].geometry.coordinates[0];
       //var latlng = [lat, lng];
@@ -45,7 +59,7 @@ function plates() {
         color: "#FFA500"
       }).addTo(myMap);
     }
-  });
+  });*/
 };
 
 var earthquakes = L.layerGroup(circles());
@@ -108,7 +122,7 @@ var overlayMaps = {
 var myMap = L.map("map", {
   center: [29.2996437,1.832259],
   zoom: 2,
-  layers: [lightmap, earthquakes, plate]
+  layers: [lightmap, earthquakes, faultLine]
 });
 
 // Pass our map layers into our layer control
