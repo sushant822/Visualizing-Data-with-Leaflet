@@ -4,9 +4,8 @@ var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 
 var platesURL = "static/data/boundaries.json";
 
-//var circleMarkers = [];
+var circleMarkers = new L.LayerGroup();
 
-function circles() {
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
   //console.log(coordinates);
@@ -21,11 +20,14 @@ d3.json(queryURL, function(response) {
       stroke: false,
       fillOpacity: 0.5,
       radius: 50000*mag
-  }).addTo(myMap);
+  }).addTo(circleMarkers);
   circle.bindPopup("<h1>" + place + "</h1> <hr> Magnitude " + mag + "");
   //circleMarkers.push(circle);
   }
 });
+
+function circles() {
+
 };
 
 //console.log(circleMarkers);
@@ -115,14 +117,14 @@ function magColor(mag) {
 
 // Overlays that may be toggled on or off
 var overlayMaps = {
-  "Earthquakes": earthquakes,
-  "Plates" : plate
+  "Earthquakes": circleMarkers,
+  "Plates" : faultLine
 };
 
 var myMap = L.map("map", {
   center: [29.2996437,1.832259],
   zoom: 2,
-  layers: [lightmap, earthquakes, faultLine]
+  layers: [lightmap, circleMarkers, faultLine]
 });
 
 // Pass our map layers into our layer control
