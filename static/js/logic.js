@@ -6,6 +6,7 @@ var platesURL = "static/data/boundaries.json";
 
 var circleMarkers = [];
 
+function circles() {
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
   //console.log(coordinates);
@@ -23,13 +24,12 @@ d3.json(queryURL, function(response) {
       radius: 50000*mag
   }).addTo(myMap);
   circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
-  circleMarkers.push(circle);
+  //circleMarkers.push(circle);
   }
 });
+};
 
 //console.log(circleMarkers);
-
-var cities = L.layerGroup(circleMarkers);
 
 function plates() {
   d3.json(platesURL, function(response) {
@@ -47,6 +47,9 @@ function plates() {
     }
   });
 };
+
+var earthquakes = L.layerGroup(circles());
+var plate = L.layerGroup(plates());
 
 //plates();
 
@@ -84,7 +87,8 @@ function magColor(mag) {
 
 // Overlays that may be toggled on or off
 var overlayMaps = {
-  "Earthquakes": cities
+  "Earthquakes": earthquakes,
+  "Plates" : plate
 };
 
 
@@ -94,7 +98,7 @@ var overlayMaps = {
 var myMap = L.map("map", {
   center: [29.2996437,1.832259],
   zoom: 2,
-  layers: [streetmap, cities]
+  layers: [streetmap, earthquakes, plate]
 });
 
 // Pass our map layers into our layer control
