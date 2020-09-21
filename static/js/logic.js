@@ -6,7 +6,6 @@ var platesURL = "static/data/boundaries.json";
 
 var circleMarkers = [];
 
-
 d3.json(queryURL, function(response) {
   var coordinates = response.features;
   //console.log(coordinates);
@@ -101,7 +100,7 @@ var myMap = L.map("map", {
 // Pass our map layers into our layer control
 // Add the layer control to the map
 L.control.layers(baseMaps, overlayMaps, {
-  collapsed: true
+  collapsed: false
 }).addTo(myMap);
 
 
