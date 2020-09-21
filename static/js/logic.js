@@ -17,7 +17,6 @@ d3.json(queryURL, function(response) {
     var mag = coordinates[i].properties.mag;
     var place = coordinates[i].properties.place;
     var circle = L.circle(latlng, {
-      color: "red",
       fillColor: magColor(mag),
       stroke: false,
       fillOpacity: 0.5,
@@ -41,7 +40,7 @@ function plates() {
       var line = [latlng];
   
       L.polyline(line, {
-        color: "orange"
+        color: "#FFA500"
       }).addTo(myMap);
     }
   });
