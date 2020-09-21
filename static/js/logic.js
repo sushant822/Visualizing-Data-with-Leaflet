@@ -4,7 +4,7 @@ var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 
 var platesURL = "static/data/boundaries.json";
 
-var circleMarkers = [];
+//var circleMarkers = [];
 
 function circles() {
 d3.json(queryURL, function(response) {
@@ -30,7 +30,7 @@ d3.json(queryURL, function(response) {
 
 //console.log(circleMarkers);
 
-function plates() {
+function plates(i) {
   d3.json(platesURL, function(response) {
     var coordinates = response.features;
     console.log(coordinates[0].geometry.coordinates);
@@ -38,8 +38,7 @@ function plates() {
       var latlng = coordinates[i].geometry.coordinates;
       //console.log(latlng);
       var line = [latlng];
-  
-      L.polyline(line, {
+        L.polyline(line, {
         color: "#FFA500"
       }).addTo(myMap);
     }
@@ -48,8 +47,6 @@ function plates() {
 
 var earthquakes = L.layerGroup(circles());
 var plate = L.layerGroup(plates());
-
-//plates();
 
 function magColor(mag) {
   return mag >= 5 ? '#FF0000':
@@ -105,10 +102,6 @@ var overlayMaps = {
   "Plates" : plate
 };
 
-
-
-
-//var myMap = L.map("map").setView([29.2996437,1.832259],2);
 var myMap = L.map("map", {
   center: [29.2996437,1.832259],
   zoom: 2,
