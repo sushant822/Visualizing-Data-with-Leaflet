@@ -34,10 +34,9 @@ d3.json(queryURL, function(response) {
 function plates() {
   d3.json(platesURL, function(response) {
     var coordinates = response.features;
-    //console.log(coordinates[0].geometry.coordinates);
+    console.log(coordinates[0].geometry.coordinates);
     for (var i = 0; i < coordinates.length; i++) {
       var test = coordinates[i].geometry.coordinates;
-      //var testReverse = test.reverse();
       //console.log(test);
       var line = [test];
   
