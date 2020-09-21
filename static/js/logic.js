@@ -13,10 +13,10 @@ d3.json(queryURL, function(response) {
   for (var i = 0; i < coordinates.length; i++) {
     var lat = coordinates[i].geometry.coordinates[1];
     var lng = coordinates[i].geometry.coordinates[0];
-    var temp = [lat, lng];
+    var latlng = [lat, lng];
     var mag = coordinates[i].properties.mag;
     var place = coordinates[i].properties.place;
-    var circle = L.circle(temp, {
+    var circle = L.circle(latlng, {
       color: "red",
       fillColor: magColor(mag),
       stroke: false,
@@ -36,9 +36,9 @@ function plates() {
     var coordinates = response.features;
     console.log(coordinates[0].geometry.coordinates);
     for (var i = 0; i < coordinates.length; i++) {
-      var test = coordinates[i].geometry.coordinates;
+      var latlng = coordinates[i].geometry.coordinates;
       //console.log(test);
-      var line = [test];
+      var line = [latlng];
   
       L.polyline(line, {
         color: "orange"
@@ -94,7 +94,7 @@ function magColor(mag) {
 
   // Define a baseMaps object to hold our base layers
   var baseMaps = {
-    "Street Map": lightmap,
+    "Light Map": lightmap,
     "Dark Map": darkmap,
     "Satellite Map": satellitemap,
     "Streets Map": streetsmap
