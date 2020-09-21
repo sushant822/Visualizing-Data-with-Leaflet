@@ -1,9 +1,10 @@
-
-// Store our API endpoint inside queryUrl
+// Store our API endpoint inside queryURL
 var queryURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
 
+// Store our boundaries endpoint inside platesURL
 var platesURL = "static/data/boundaries.json";
 
+// Create a new layer group called circleMarkers
 var circleMarkers = new L.LayerGroup();
 
 d3.json(queryURL, function(response) {
@@ -15,16 +16,18 @@ d3.json(queryURL, function(response) {
     var latlng = [lat, lng];
     var mag = coordinates[i].properties.mag;
     var place = coordinates[i].properties.place;
+    var time = coordinates[i].properties.time;
     var circle = L.circle(latlng, {
       fillColor: magColor(mag),
       stroke: false,
       fillOpacity: 0.5,
       radius: 50000*mag
   }).addTo(circleMarkers);
-  circle.bindPopup("<h1>" + place + "</h1> <hr> Magnitude " + mag + "");
+  circle.bindPopup("<h3><center>" + place + "</center></h3> <hr> <center><strong>Magnitude:</strong> " + mag + "  <br>  <strong>Time:</strong> " + Date(time) + "</center>");
   }
 });
 
+// Create a new layer group called faultLine
 var faultLine = new L.LayerGroup();
 
 d3.json(platesURL, function(response) {
@@ -35,6 +38,7 @@ d3.json(platesURL, function(response) {
   }).addTo(faultLine)
 })
 
+// Define a function that will hold our magnitude color ranges
 function magColor(mag) {
   return mag >= 5 ? '#FF0000':
         mag >= 4 ? '#FFA500':
@@ -44,44 +48,47 @@ function magColor(mag) {
                    '#008000';
 }
 
-  // Define streetmap and darkmap layers
-  var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-    tileSize: 512,
-    maxZoom: 18,
-    zoomOffset: -1,
-    id: "mapbox/light-v10",
-    accessToken: API_KEY
-  });
+// Define lightmap layers
+var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/light-v10",
+  accessToken: API_KEY
+});
 
-  var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "dark-v10",
-    accessToken: API_KEY
-  });
+// Define darkmap layers
+var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  maxZoom: 18,
+  id: "dark-v10",
+  accessToken: API_KEY
+});
 
-  var satellitemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "satellite-streets-v11",
-    accessToken: API_KEY
-  });
+// Define satellitemap layers
+var satellitemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  maxZoom: 18,
+  id: "satellite-streets-v11",
+  accessToken: API_KEY
+});
 
-  var streetsmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "streets-v11",
-    accessToken: API_KEY
-  });
+// Define streetsmap layers
+var streetsmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+  maxZoom: 18,
+  id: "streets-v11",
+  accessToken: API_KEY
+});
 
-  // Define a baseMaps object to hold our base layers
-  var baseMaps = {
-    "Light Map": lightmap,
-    "Dark Map": darkmap,
-    "Satellite Map": satellitemap,
-    "Streets Map": streetsmap
-  };
+// Define a baseMaps object to hold our base layers
+var baseMaps = {
+  "Light Map": lightmap,
+  "Dark Map": darkmap,
+  "Satellite Map": satellitemap,
+  "Streets Map": streetsmap
+};
 
 // Overlays that may be toggled on or off
 var overlayMaps = {
@@ -89,6 +96,7 @@ var overlayMaps = {
   "Plates" : faultLine
 };
 
+// Define a map object
 var myMap = L.map("map", {
   center: [29.2996437,1.832259],
   zoom: 2,
@@ -101,10 +109,10 @@ L.control.layers(baseMaps, overlayMaps, {
   collapsed: true
 }).addTo(myMap);
 
+// Create our legend
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function () {
-
     var div = L.DomUtil.create('div', 'info legend'),
         grades = [0, 1, 2, 3, 4, 5],
         labels = [];
@@ -115,7 +123,6 @@ legend.onAdd = function () {
             '<i style="background:' + magColor(grades[i]) + '"></i> ' +
             grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
-
     return div;
 };
 
