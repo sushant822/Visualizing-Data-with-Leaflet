@@ -33,10 +33,13 @@ d3.json(queryURL, function(response) {
 function plates() {
   d3.json(platesURL, function(response) {
     var coordinates = response.features;
-    console.log(coordinates[0].geometry.coordinates);
+    //console.log(coordinates[0].geometry.coordinates);
     for (var i = 0; i < coordinates.length; i++) {
-      var latlng = coordinates[i].geometry.coordinates;
-      //console.log(latlng);
+      var latlng = (coordinates[i].geometry.coordinates).reverse();
+      //var lat = coordinates[i].geometry.coordinates[1];
+      //var lng = coordinates[i].geometry.coordinates[0];
+      //var latlng = [lat, lng];
+      //console.log(lng);
       var line = [latlng];
         L.polyline(line, {
         color: "#FFA500"
