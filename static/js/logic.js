@@ -30,7 +30,7 @@ d3.json(queryURL, function(response) {
 
 //console.log(circleMarkers);
 
-function plates(i) {
+function plates() {
   d3.json(platesURL, function(response) {
     var coordinates = response.features;
     console.log(coordinates[0].geometry.coordinates);
