@@ -54,16 +54,16 @@ var plate = L.layerGroup(plates());
 //plates();
 
 function magColor(mag) {
-  return mag >= 5 ? '#D73027':
-        mag >= 4 ? '#FC8D59':
-        mag >= 3 ? '#FEE08B':
-        mag >= 2 ? '#D9EF8B':
-        mag >= 1 ? '#91CF60':
-                   '#1A9850';
+  return mag >= 5 ? '#FF0000':
+        mag >= 4 ? '#FFA500':
+        mag >= 3 ? '#FFFF00':
+        mag >= 2 ? '#ADFF2F':
+        mag >= 1 ? '#00FF00':
+                   '#008000';
 }
 
   // Define streetmap and darkmap layers
-  var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     tileSize: 512,
     maxZoom: 18,
@@ -79,10 +79,26 @@ function magColor(mag) {
     accessToken: API_KEY
   });
 
+  var satellitemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "satellite-streets-v11",
+    accessToken: API_KEY
+  });
+
+  var streetsmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "streets-v11",
+    accessToken: API_KEY
+  });
+
   // Define a baseMaps object to hold our base layers
   var baseMaps = {
-    "Street Map": streetmap,
-    "Dark Map": darkmap
+    "Street Map": lightmap,
+    "Dark Map": darkmap,
+    "Satellite Map": satellitemap,
+    "Streets Map": streetsmap
   };
 
 // Overlays that may be toggled on or off
@@ -98,7 +114,7 @@ var overlayMaps = {
 var myMap = L.map("map", {
   center: [29.2996437,1.832259],
   zoom: 2,
-  layers: [streetmap, earthquakes, plate]
+  layers: [lightmap, earthquakes, plate]
 });
 
 // Pass our map layers into our layer control
@@ -119,7 +135,7 @@ legend.onAdd = function () {
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + magColor(grades[i] + 1) + '"></i> ' +
+            '<i style="background:' + magColor(grades[i]) + '"></i> ' +
             grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
 
