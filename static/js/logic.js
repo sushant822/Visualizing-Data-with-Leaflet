@@ -36,7 +36,7 @@ function plates() {
     console.log(coordinates[0].geometry.coordinates);
     for (var i = 0; i < coordinates.length; i++) {
       var latlng = coordinates[i].geometry.coordinates;
-      //console.log(test);
+      //console.log(latlng);
       var line = [latlng];
   
       L.polyline(line, {
