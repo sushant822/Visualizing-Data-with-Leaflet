@@ -22,7 +22,7 @@ d3.json(queryURL, function(response) {
       fillOpacity: 0.5,
       radius: 50000*mag
   }).addTo(myMap);
-  circle.bindPopup("<h1>" + place + "</h1> <hr> <h3>Magnitude " + mag + "</h3>");
+  circle.bindPopup("<h1>" + place + "</h1> <hr> Magnitude " + mag + "");
   //circleMarkers.push(circle);
   }
 });
