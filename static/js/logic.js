@@ -55,7 +55,7 @@ var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/
   maxZoom: 18,
   zoomOffset: -1,
   id: "mapbox/light-v10",
-  accessToken: "pk.eyJ1Ijoic3VzaGFudDgyMiIsImEiOiJja2V6dnF4ZTAwdDd4MnhwM2x3NWJ6bXBxIn0.eviVtCSmXGHXgKh6L_cNeQ"
+  accessToken: API_KEY
 });
 
 // Define darkmap layers
@@ -63,7 +63,7 @@ var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
   id: "dark-v10",
-  accessToken: "pk.eyJ1Ijoic3VzaGFudDgyMiIsImEiOiJja2V6dnF4ZTAwdDd4MnhwM2x3NWJ6bXBxIn0.eviVtCSmXGHXgKh6L_cNeQ"
+  accessToken: API_KEY
 });
 
 // Define satellitemap layers
@@ -71,7 +71,7 @@ var satellitemap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/til
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
   id: "satellite-streets-v11",
-  accessToken: "pk.eyJ1Ijoic3VzaGFudDgyMiIsImEiOiJja2V6dnF4ZTAwdDd4MnhwM2x3NWJ6bXBxIn0.eviVtCSmXGHXgKh6L_cNeQ"
+  accessToken: API_KEY
 });
 
 // Define streetsmap layers
@@ -79,7 +79,7 @@ var streetsmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
   id: "streets-v11",
-  accessToken: "pk.eyJ1Ijoic3VzaGFudDgyMiIsImEiOiJja2V6dnF4ZTAwdDd4MnhwM2x3NWJ6bXBxIn0.eviVtCSmXGHXgKh6L_cNeQ"
+  accessToken: API_KEY
 });
 
 // Define a baseMaps object to hold our base layers
